@@ -21,3 +21,19 @@ export const loadProductsIfNotExist = (store) => (next) => (action) => {
     .then(products => store.dispatch(successLoadingProducts(products)))
     .catch(err => store.dispatch(failedLoadingProducts()))
 }
+
+export const fetchProductsByIdThunk = (sectionId) => async (dispatch, getState) => {
+    const productsIds = selectSectionProductsIdsById(getState(), sectionId);
+    const uploadedProdsIds = selectProductsIds(getState());
+    
+    if (productsIds?.length === 0 || (uploadedProdsIds?.length > 0 && productsIds.every(id => uploadedProdsIds.includes(id)))) {
+        return
+    }
+
+    dispatch(startLoadingProducts());
+
+    fetch(`http://localhost:3001/products?sectionId=${sectionId}`)
+    .then(res => res.json())
+    .then(products => dispatch(successLoadingProducts(products)))
+    .catch(err => dispatch(failedLoadingProducts()))
+}

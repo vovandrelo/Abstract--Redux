@@ -18,3 +18,18 @@ export const loadSectionsIfNotExist = (store) => (next) => (action) => {
     .then(sections => store.dispatch(successLoadingSections(sections)))
     .catch(err => store.dispatch(failedLoadingSections()));
 }
+
+
+
+export const fetchSectionsThunk = () => async (dispatch, getState) => {
+    if (selectSectionsIds(getState())?.length > 0) {
+        return;
+    }
+    
+    dispatch(startLoadingSections());
+
+    fetch("http://localhost:3001/sections")
+    .then(res => res.json())
+    .then(sections => dispatch(successLoadingSections(sections)))
+    .catch(err => dispatch(failedLoadingSections()));
+}
