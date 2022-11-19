@@ -1,6 +1,4 @@
-
-
-export const selectProductsModuleState = state => state.collections.products;
+export const selectProductsModuleState = state => state.products;
 export const selectProductsIds = state => selectProductsModuleState(state)?.ids;
 export const selectProductById = (state, productId) => selectProductsModuleState(state).entities[productId];
 export const selectProductNameById = (state, productId) => selectProductById(state, productId).name;

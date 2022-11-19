@@ -6,6 +6,7 @@ import { selectSectionsIds } from "../../store/modules/collections/sections/sele
 import { LOADING_STATUSES } from "../../store/constants/loading-statuses";
 import Shop from "../../components/Shop/Shop";
 import Notify from "../../components/Notify/Notify";
+import { fetchSectionsThunk } from "../../store/modules/collections/sections/middlewares/fetchSections";
 
 const ShopContainer = () => {
     console.log("RENDER = CONTAINER = SHOP");
@@ -14,7 +15,8 @@ const ShopContainer = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(loadSections())
+        dispatch(fetchSectionsThunk())
+        //dispatch(loadSections())
     }, [])
 
 

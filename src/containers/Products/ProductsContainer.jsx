@@ -7,6 +7,7 @@ import { selectSectionProductsIdsById } from "../../store/modules/collections/se
 import Products from "../../components/Products/Products";
 import Notify from "../../components/Notify/Notify";
 import { LOADING_STATUSES } from "../../store/constants/loading-statuses";
+import { fetchProductsByIdThunk } from "../../store/modules/collections/products/middlewares/fetchProductsById";
 
 const ProductsContainer = () => {
     console.log("RENDER = CONTAINER = PRODUCTS");
@@ -16,7 +17,8 @@ const ProductsContainer = () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(loadProducts(activeSectionId))
+        dispatch(fetchProductsByIdThunk(activeSectionId))
+        // dispatch(loadProducts(activeSectionId))
     }, [activeSectionId])
 
     if (loadingStatus === LOADING_STATUSES.notStarted) {
